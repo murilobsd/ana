@@ -22,14 +22,14 @@ praticamente qualquer lugar, darei algumas dicas abaixo ;-)
 ### Resumão
 
 Pró:
-- menor que framework css Bootstrap4
+- menor que a framework css Bootstrap4
 - suporta pledge
 - suporta markdown
 - possui header e footer direto no código
-- "rápido"
+- "rápido" 5000 arquivos em 3s
 
 Contra:
-- ainda faz cache
+- ainda não faz cache
 - ainda não gera rss
 - funcionar no OpenBSD, não testei no Free, Net, Linux, Win e MacOS
 - ainda não possui título nas páginas
@@ -43,6 +43,7 @@ Contra:
   - [Instalação via Repo](#instalação-via-repo)
 - [Uso](#uso)
 - [Exemplo](#exemplo-de-uso)
+- [Publicar](#publicar)
 - [LICENSA](LICENSE)
 
 ## Instalação
@@ -57,6 +58,12 @@ Caso você queira usar markdown necessita instalar lowndown. Ana foi usado
 somente no sistema operacional OpenBSD acho que você terá dificuldades em usar
 em outros sistema, mas caso você tenha interesse pode portar para colocarmos
 aqui.
+
+Para instalar o lowdown no OpenBSD
+
+```
+doas pkg_add -v lowndown
+```
 
 ### Instalação binário
 
@@ -86,15 +93,15 @@ usage: ana src dst
 Basicamente passa o caminho onde estão os seus arquivos html's, markdown's,
 arquivos estáticos (css, img...) e o destino.
 
-*Arquivos/Pastas considerados ocultos (".nomearquivo") não serão copiados.*
+**Arquivos/Pastas considerados ocultos (".nomearquivo") não serão copiados.**
 
 Você pode adicionar um arquivo que represente o header do seu website e também
 um que represente o footer esses arquivos tem que estar dentro da pasta de
 origem com os respectivos nomes, por exemplo caso sua pasta de origem tivesse o
 nome **src**
 
-src/_header.html
-src/_footer.html
+- src/_header.html
+- src/_footer.html
 
 Além de ignorar arquivos ocultos você pode adicionar pastas ou caminho completo
 do nome do arquivo a ser ignorado no arquivo **.anaignore**.
@@ -130,3 +137,14 @@ cat dst/index.html
 </body></html>
 
 ```
+
+## Publicar
+
+Por ser conteúdo estático você pode praticamente hospedar em qualquer lugar de
+forma muito simples e rápida.
+
+### S3
+
+### Firebase
+
+### GitHub
