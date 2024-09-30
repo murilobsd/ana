@@ -1,0 +1,27 @@
+[package]
+name                  = "anad"
+authors.workspace     = true
+description.workspace = true
+version.workspace     = true
+homepage.workspace    = true
+repository.workspace  = true
+readme.workspace      = true
+categories.workspace  = true
+keywords.workspace    = true
+license.workspace     = true
+edition.workspace     = true
+
+[lints]
+workspace = true
+
+[lib]
+test    = false
+doctest = false
+
+[[bin]]
+name    = "anad"
+path    = "src/main.rs"
+test    = false
+doctest = false
+
+[dependencies]

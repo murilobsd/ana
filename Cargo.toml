@@ -1,0 +1,40 @@
+[workspace]
+resolver = "2"
+members  = ["anactl", "anad"]
+
+[workspace.package]
+authors     = ["Murilo Ijanc' <mbsd@m0x.ru>"]
+description = ""
+version     = "0.1.0"
+homepage    = "https://git.sr.ht/~mbsd/ana"
+repository  = "https://git.sr.ht/~mbsd/ana"
+readme      = "README.md"
+categories  = ["networking-programming"]
+keywords    = ["net", "network"]
+license     = "ISC"
+edition     = "2021"
+
+[workspace.lints.clippy]
+all        = { level = "warn", priority = -1 }
+empty_docs = { level = "allow", priority = 1 }
+# restriction
+dbg_macro     = "warn"
+todo          = "warn"
+unimplemented = "warn"
+print_stdout  = "warn" # Must be opt-in
+print_stderr  = "warn" # Must be opt-in
+
+[profile.dev]
+# Disabling debug info speeds up local and CI builds,
+# and we don't rely on it for debugging that much.
+debug = false
+
+[profile.release]
+# Configurations explicitly listed here for clarity.
+# Using the best options for performance.
+opt-level     = 3
+lto           = "fat"
+codegen-units = 1
+strip         = "symbols" # Set to `false` for debug information
+debug         = false # Set to `true` for debug information
+panic         = "abort" # Let it crash and force ourselves to write safe Rust

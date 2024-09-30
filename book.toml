@@ -1,0 +1,6 @@
+[book]
+authors      = ["murilo ijanc"]
+language     = "en"
+multilingual = false
+src          = "docs"
+title        = "ana"

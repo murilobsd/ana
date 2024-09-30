@@ -1,0 +1,7 @@
+include = ["*.toml", "anactl/Cargo.toml", "anad/Cargo.toml", "crates/*/*.toml"]
+
+[formatting]
+align_entries  = true
+column_width   = 80
+align_comments = false
+reorder_arrays = true
