@@ -1,5 +1,7 @@
-use std::os::unix::net::{UnixListener, UnixStream};
+use daemonize::Daemonize;
+use std::fs::{self, File};
 use std::io::{Read, Write};
+use std::os::unix::net::{UnixListener, UnixStream};
 
 fn handle_client(mut stream: UnixStream) {
     let mut buffer = [0; 1024];
@@ -9,9 +11,10 @@ fn handle_client(mut stream: UnixStream) {
             Ok(n) if n > 0 => {
                 let received = String::from_utf8_lossy(&buffer[..n]);
                 println!("Received command: {}", received);
-                
+
                 // Responder ao comando
-                let response = format!("Command '{}' received!", received.trim());
+                let response =
+                    format!("Command '{}' received!", received.trim());
                 if let Err(e) = stream.write_all(response.as_bytes()) {
                     eprintln!("Failed to send response: {}", e);
                 }
@@ -27,6 +30,29 @@ fn handle_client(mut stream: UnixStream) {
 
 fn main() -> std::io::Result<()> {
     let socket_path = "/tmp/anad.sock";
+
+    if fs::metadata(socket_path).is_ok() {
+        fs::remove_file(socket_path)?;
+        println!("Existing socket file removed: {}", socket_path);
+    }
+
+    let stdout = File::create("/tmp/anad.out").unwrap();
+    let stderr = File::create("/tmp/anad.err").unwrap();
+
+    let daemonize = Daemonize::new()
+        .pid_file("/tmp/anad.pid")
+        .chown_pid_file(true)
+        .working_directory("/tmp")
+        .user("nobody")
+        .group("nobody")
+        .stdout(stdout)
+        .stderr(stderr);
+
+    match daemonize.start() {
+        Ok(_) => println!("Daemon started successfully."),
+        Err(e) => eprintln!("Error starting daemon: {}", e),
+    }
+
     let listener = UnixListener::bind(socket_path)?;
 
     println!("Server listening on {}", socket_path);
@@ -43,4 +69,3 @@ fn main() -> std::io::Result<()> {
 
     Ok(())
 }
-
