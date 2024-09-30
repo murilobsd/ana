@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members  = ["anactl", "anad"]
+members  = ["anactl", "anad", "crates/*"]
 
 [workspace.package]
 authors     = ["Murilo Ijanc' <mbsd@m0x.ru>"]
@@ -23,6 +23,11 @@ todo          = "warn"
 unimplemented = "warn"
 print_stdout  = "warn" # Must be opt-in
 print_stderr  = "warn" # Must be opt-in
+
+[workspace.dependencies]
+ed25519-dalek = { version = "2.1.1", features = ["rand_core"] }
+sha2          = "0.11.0-pre.4"
+rand          = "0.8"
 
 [profile.dev]
 # Disabling debug info speeds up local and CI builds,
